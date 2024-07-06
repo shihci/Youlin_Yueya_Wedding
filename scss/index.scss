@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=LXGW+WenKai+TC:wght@300;400;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  * {
+    @apply relative font-notoSerifTC;
+    font-size: 16px;
+  }
+  body {
+    @apply bg-bgYellow;
+  }
+}
+@layer components {
+  body {
+    background-color: #f0ede6;
+  }
+  .navbar_wedding {
+    @apply rounded-full bg-[rgba(255,255,255,0.37)];
+    box-shadow: 0 4px 6px rgba(142, 162, 138, 0.25);
+  }
+  .navbar_wedding .list-item {
+    @apply text-custBlue inline-block py-4 px-4 text-lg font-bold;
+  }
+  .navbar_wedding {
+    @apply absolute top-20 left-1/2 text-center flex justify-center;
+    transform: translateX(-50%);
+    width: 600px;
+    gap: 40px;
+  }
+  .content {
+    @apply relative;
+  }
+  .content-svg {
+    @apply absolute;
+    mix-blend-mode: multiply;
+  }
+  .title-alex {
+    font-family: "Alex Brush";
+    font-size: 64px;
+  }
+  .radioStyle {
+    display: block;
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  /* Hide the browser's default radio button */
+  .radioStyle input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom radio button */
+  .checkmark {
+    @apply border-custGreen border-[1px];
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* On mouse-over, add a grey background color */
+  .radioStyle:hover input ~ .checkmark {
+    background-color: #d9e0d5;
+  }
+
+  /* When the radio button is checked, add a blue background */
+  .radioStyle input:checked ~ .checkmark {
+    background-color: #fff;
+  }
+
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+  .radioStyle input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the indicator (dot/circle) */
+  .radioStyle .checkmark:after {
+    @apply bg-custGreen;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+  .rsvpInput {
+    @apply block w-full bg-[#D9E0D5] border-b border-custGreen;
+  }
+  .btn-rsvp {
+    @apply border border-custGreen px-6 py-1 rounded-sm bg-custGreen text-white;
+  }
+  .btn-rsvp:hover {
+    @apply bg-transparent text-custGreen border-custGreen;
+  }
+  .btn-cancel {
+    @apply text-[#777] border border-[#777] px-6 py-1 rounded-sm;
+  }
+  .btn-cancel:hover {
+    @apply bg-[#999] text-white;
+  }
+  .rsvpInput:focus-visible {
+    @apply border-[custGreen];
+  }
+  .grafic-col {
+    @apply h-[400px] overflow-hidden p-2;
+  }
+  .img1,
+  .img3,
+  .img5,
+  .img6 {
+    width: 22%;
+  }
+  .img2,
+  .img8 {
+    width: 40%;
+  }
+  .img4,
+  .img7 {
+    width: 16%;
+  }
+  .graficImg {
+    @apply min-w-full min-h-full object-cover;
+  }
+  .grafic-flower {
+    @apply absolute top-1/2 left-1/2;
+    transform: translate(-50%, -50%);
+  }
+  .form-rsvpInput {
+    @apply py-2;
+  }
+}

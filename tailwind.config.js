@@ -1,0 +1,63 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["*.html"],
+  theme: {
+    screens: {
+      sm: { min: "390px" },
+      md: { min: "768px" },
+      lg: { min: "992px" },
+      "2xl": { min: "1580px" },
+      // => @media (min-width: 1580px) { ... }
+    },
+    extend: {
+      colors: {
+        custGreen: "#00745A",
+        custRed: "#ED5F54",
+        custBlue: "#5E6A8F",
+        custGrayYellow: "#98915D",
+        custGreen: "#507A59",
+        bgYellow: "#FCFAF4",
+      },
+      fontFamily: {
+        notoSerifTC: [
+          "LXGW WenKai TC",
+          "Alex Brush",
+          "微軟正黑體",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          '"Noto Sans"',
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
+        ],
+        notoSansTC: [
+          "Noto Sans TC",
+          "微軟正黑體",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          '"Noto Sans"',
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
+        ],
+      },
+    },
+  },
+  plugins: [],
+};
