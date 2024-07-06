@@ -14,49 +14,85 @@
   <body>
     <div id="app">
       <div class="container-fuild">
-        <div class="header">
+        <div class="header" id="top">
           <div class="relative">
-            <img class="w-100" src="img/headerBg.jpg" alt="" />
-            <img class="absolute top-0 left-0" src="img/headerDir.svg" alt="" />
+            <img class="hidden lg:block w-100" src="img/headerBg.jpg" alt="" />
+            <img
+              class="hidden lg:block absolute top-0 left-0"
+              src="img/headerDir.svg"
+              alt=""
+            />
+            <img
+              class="lg:hidden h-screen w-full object-cover"
+              src="img/headerBg-phone.jpg"
+              alt=""
+            />
+            <h2
+              class="text-[30px] lg:text-[48px] text-custBlue lg:text-custGrayYellow absolute top-[15%] lg:top-[20%] left-[15%] lg:left-[20%]"
+            >
+              宥霖＆梅芳
+            </h2>
+            <h2
+              class="title-alex text-[48px] lg:text-[80px] text-custBlue lg:text-custGrayYellow absolute top-[21%] lg:top-[28%] left-[25%]"
+            >
+              Wedding
+            </h2>
           </div>
-          <nav class="navbar_wedding">
-            <a class="list-item">TOP</a>
-            <a class="list-item">結婚資訊</a>
-            <a class="list-item">邀請調查</a>
-            <a class="list-item">交通指南</a>
+          <button
+            id="hamburger"
+            :class="['lg:hidden','hamburger','hamburger--collapse','m-4',{'is-active':isOpen}]"
+            type="button"
+            v-on:click="isOpen=!isOpen"
+          >
+            <span class="hamburger-box"
+              ><span class="hamburger-inner"></span
+            ></span>
+          </button>
+          <!-- <nav class=""></nav> -->
+          <nav :class="['block','navbar_wedding',{'h-[246px]':isOpen}]">
+            <a href="#top" class="list-item">TOP</a>
+            <a href="#weddingInfo" class="list-item">結婚資訊</a>
+            <a href="#rsvp" class="list-item">邀請調查</a>
+            <a href="#map" class="list-item">交通指南</a>
           </nav>
         </div>
         <div class="content">
           <img class="content-svg" src="img/weddingBodyBg-02.svg" alt="" />
           <!-- 入場資訊 -->
-          <div class="row m-0">
+          <div class="row m-0 px-2 lg:px-0" id="weddingInfo">
             <div class="col-12 col-lg-6">
               <img src="img/pic1.png" alt="" />
             </div>
             <div class="col-12 col-lg-6 text-center flex justify-center">
               <div class="content-center grid gap-3">
-                <div class="mb-5">
+                <div class="mb-3 lg:mb-5">
                   <h2 class="title-alex text-custGrayYellow">Our Wedding</h2>
                   <h3 class="text-[32px] text-custGrayYellow">誠摯地邀請您</h3>
                 </div>
 
-                <h4 class="text-2xl tracking-[14px] text-custGreen">
+                <h4 class="text-xl lg:text-2xl tracking-[14px] text-custGreen">
                   ＮOV｜02｜2024
                 </h4>
-                <h4 class="text-2xl text-custGreen tracking-[2px]">
+                <h4
+                  class="text-xl lg:text-2xl text-custGreen tracking-[3px] lg:tracking-[2px]"
+                >
                   RECEPTION：17:00-19:00
                 </h4>
-                <h4 class="text-[40px] tracking-[1px] text-custGreen">
+                <h4
+                  class="text-[36px] lg:text-[40px] tracking-[1px] text-custGreen"
+                >
                   唯愛庭園-艾薇納廳
                 </h4>
-                <h4 class="text-2xl tracking-[1px] text-custGreen">
+                <h4
+                  class="text-[21px] lg:text-2xl tracking-[2px] lg:tracking-[1px] text-custGreen"
+                >
                   彰化縣彰化市大埔路2巷126號
                 </h4>
               </div>
             </div>
           </div>
           <!-- rsvp -->
-          <div class="relative row m-0">
+          <div class="relative row m-0 px-2 lg:px-0" id="rsvp">
             <img
               class="absolute top-0 left-0 w-[100px] p-0"
               src="img/pic2.svg"
@@ -68,153 +104,251 @@
               alt=""
             />
             <div class="row m-0 p-0">
-              <div class="col-4">
-                <img class="w-100" src="img/weddingDraw.png" alt="" />
+              <div class="col-12 col-lg-4 pt-5 pb-4 py-0">
+                <img
+                  class="w-100 lg:h-[650px] object-contain"
+                  src="img/weddingDraw.png"
+                  alt=""
+                />
               </div>
-              <div class="col-2">
+              <div class="col-lg-2 hidden lg:block">
                 <img class="w-100" src="img/rspv-dir1.png" alt="" />
               </div>
-              <div class="col-6">
+              <div class="col-12 col-lg-6">
                 <h2 class="text-[64px] text-custGrayYellow">RSVP</h2>
-                <div>
-                  <p class="text-[#333]">
-                    我們即將迎來我們人生中最重要的時刻之一——我們的婚禮！
-                    為了籌備這場盛會，我們希望能知道您是否能夠出席我們的婚禮。
-                    無論您是否出席，希望您填寫邀請調查表，以便我們能更好地安排一切細節！
-                  </p>
-                  <div class="w-[50%]">
+                <div class="rsvp-frame">
+                  <div v-if="islevel1 && !islevel2">
+                    <p class="text-[#333]">
+                      我們即將迎來我們人生中最重要的時刻之一——我們的婚禮！
+                      為了籌備這場盛會，我們希望能知道您是否能夠出席我們的婚禮。
+                      無論您是否出席，希望您填寫邀請調查表，以便我們能更好地安排一切細節！
+                    </p>
+                    <div class="w-full lg:w-[50%]">
+                      <div class="form-rsvpInput">
+                        <label class="block" for=""
+                          ><span class="text-danger">*</span>您的大名：</label
+                        >
+                        <input
+                          class="rsvpInput"
+                          type="text"
+                          v-model="rsvp.name"
+                        />
+                      </div>
+                      <div class="form-rsvpInput">
+                        <label class="block" for=""
+                          ><span class="text-danger">*</span>聯絡電話：</label
+                        >
+                        <input
+                          class="rsvpInput"
+                          type="text"
+                          v-model="rsvp.telphone"
+                        />
+                      </div>
+
+                      <div class="form-rsvpInput">
+                        <label class="block" for=""
+                          ><span class="text-danger">*</span>是否出席：</label
+                        >
+
+                        <label class="radioStyle" id="isAttend1"
+                          >是
+                          <input
+                            type="radio"
+                            name="isAttend1"
+                            :value="true"
+                            v-model="isAttend"
+                            v-on:change="onAttend()"
+                          />
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="radioStyle" id="isAttend2"
+                          >否
+                          <input
+                            type="radio"
+                            name="isAttend2"
+                            :value="false"
+                            v-model="isAttend"
+                            v-on:change="onAttend()"
+                          />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                      <div class="form-rsvpInput">
+                        <button class="btn btn-rsvp" v-on:click="onContinue()">
+                          繼續
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 第二道問題 -->
+                  <div class="w-full lg:w-[50%]" v-if="!islevel1">
                     <div class="form-rsvpInput">
                       <label class="block" for=""
-                        ><span class="text-danger">*</span>您的大名：</label
+                        ><span class="text-danger">*</span>賓客為何方親友</label
                       >
-                      <input
+                      <label class="radioStyle" id="man"
+                        >男方
+                        <input
+                          type="radio"
+                          checked="checked"
+                          name="man"
+                          value="男方"
+                          v-model="rsvp.isManOrWoman"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radioStyle" id="woman"
+                        >女方
+                        <input
+                          type="radio"
+                          name="woman"
+                          value="女方"
+                          v-model="rsvp.isManOrWoman"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="form-rsvpInput">
+                      <label class="block" for=""
+                        ><span class="text-danger">*</span>與新人關係</label
+                      >
+                      <label class="radioStyle" id="family"
+                        >親人
+                        <input
+                          type="radio"
+                          checked="checked"
+                          name="family"
+                          value="親人"
+                          v-model="rsvp.relation"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radioStyle" id="classmate"
+                        >同學
+                        <input
+                          type="radio"
+                          name="classmate"
+                          value="同學"
+                          v-model="rsvp.relation"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radioStyle" id="friend"
+                        >朋友
+                        <input
+                          type="radio"
+                          name="friend"
+                          value="朋友"
+                          v-model="rsvp.relation"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radioStyle" id="colleague"
+                        >同事
+                        <input
+                          type="radio"
+                          name="colleague"
+                          value="同事"
+                          v-model="rsvp.relation"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radioStyle" id="elderFriends"
+                        >長輩朋友
+                        <input
+                          type="radio"
+                          name="elderFriends"
+                          value="長輩朋友"
+                          v-model="rsvp.relation"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="form-rsvpInput">
+                      <label class="block" for=""
+                        ><span class="text-danger">*</span
+                        >出席人數（含自己）：</label
+                      >
+                      <select
+                        name=""
+                        id=""
                         class="rsvpInput"
-                        type="text"
-                        v-model="rsvp.name"
-                      />
+                        v-model="rsvp.quantity"
+                      >
+                        <option :value="null">請選擇</option>
+                        <option v-for="num in 10" :value="num">{{num}}</option>
+                      </select>
                     </div>
                     <div class="form-rsvpInput">
                       <label class="block" for=""
-                        ><span class="text-danger">*</span>聯絡電話：</label
+                        ><span class="text-danger">*</span
+                        >兒童座椅需求(數量)：</label
                       >
-                      <input class="rsvpInput" type="text" v-model="rsvp.tel" />
+                      <select
+                        name=""
+                        id=""
+                        class="rsvpInput"
+                        v-model="rsvp.chairQty"
+                      >
+                        <option :value="null">請選擇</option>
+                        <option value="0">0</option>
+                        <option v-for="num in 5" :value="num">{{num}}</option>
+                      </select>
                     </div>
-
                     <div class="form-rsvpInput">
                       <label class="block" for=""
-                        ><span class="text-danger">*</span>是否出席：</label
+                        ><span class="text-danger">*</span>素食人數：</label
                       >
-
-                      <label class="radioStyle"
-                        >是
-                        <input type="radio" checked="checked" name="radio" />
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="radioStyle"
-                        >否
-                        <input type="radio" name="radio" />
-                        <span class="checkmark"></span>
-                      </label>
+                      <select
+                        name=""
+                        id=""
+                        class="rsvpInput"
+                        v-model="rsvp.vegetarianDietQty"
+                      >
+                        <option :value="null">請選擇</option>
+                        <option value="0">0</option>
+                        <option v-for="num in 10" :value="num">{{num}}</option>
+                      </select>
                     </div>
                     <div class="form-rsvpInput">
+                      <label class="block" for=""
+                        ><span class="text-danger">*</span
+                        >紙本喜帖寄送地址：</label
+                      >
+                      <textarea
+                        class="rsvpInput"
+                        rows="4"
+                        v-model="rsvp.address"
+                      ></textarea>
+                    </div>
+                    <div class="form-rsvpInput">
+                      <label class="block" for="">想對新人說的話:</label>
+                      <textarea
+                        class="rsvpInput"
+                        rows="4"
+                        v-model="rsvp.ps"
+                      ></textarea>
+                    </div>
+                    <div class="form-rsvpInput flex gap-3">
+                      <button class="btn btn-cancel" v-on:click="islevel1=true">
+                        返回
+                      </button>
                       <button class="btn btn-rsvp" v-on:click="onSubmit()">
-                        繼續
+                        提交
                       </button>
                     </div>
                   </div>
-                </div>
-                <!-- 第二道問題 -->
-                <div class="w-[50%]">
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span>賓客為何方親友</label
-                    >
-                    <label class="radioStyle"
-                      >男方
-                      <input type="radio" checked="checked" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radioStyle"
-                      >女方
-                      <input type="radio" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
+                  <div class="w-full lg:w-[50%]" v-if="islevel2">
+                    <p class="text-[#333] text-2xl">
+                      已收到您的回覆，感謝您撥空填寫！
+                    </p>
                   </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span>與新人關係</label
-                    >
-                    <label class="radioStyle"
-                      >親人
-                      <input type="radio" checked="checked" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radioStyle"
-                      >同學
-                      <input type="radio" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radioStyle"
-                      >朋友
-                      <input type="radio" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radioStyle"
-                      >同事
-                      <input type="radio" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label class="radioStyle"
-                      >長輩朋友
-                      <input type="radio" name="radio" />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span
-                      >出席人數（含自己）：</label
-                    >
-                    <input class="rsvpInput" type="text" />
-                  </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span>兒童座椅需求：</label
-                    >
-                    <input class="rsvpInput" type="number" value="0" />
-                  </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span>素食人數：</label
-                    >
-                    <input class="rsvpInput" type="number" value="0" />
-                  </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for=""
-                      ><span class="text-danger">*</span
-                      >紙本喜帖寄送地址：</label
-                    >
-                    <input class="rsvpInput" type="text" />
-                  </div>
-                  <div class="form-rsvpInput">
-                    <label class="block" for="">想對新人說的話:</label>
-                    <textarea class="rsvpInput"></textarea>
-                  </div>
-                  <div class="form-rsvpInput">
-                    <button class="btn btn-cancel">返回</button>
-                    <button class="btn btn-rsvp">提交</button>
-                  </div>
-                </div>
-                <div class="w-[50%]">
-                  <p class="text-[#333] text-xl">
-                    已收您的回覆，感謝您撥空填寫！
-                  </p>
                 </div>
               </div>
             </div>
           </div>
           <!-- 結婚照片 -->
-          <div>
+          <div class="hidden lg:block">
             <h2 class="text-[64px] title-alex text-custGrayYellow">
               Photo Grafic
             </h2>
@@ -255,30 +389,32 @@
           </div>
 
           <!-- 餐廳資訊 -->
-          <div class="row m-0">
-            <div class="col-12 col-lg-6">
-              <h2>路線資訊</h2>
-              <h3>▸國道1</h3>
-              <p>
+          <div class="row m-0 px-2 lg:px-0" id="map">
+            <div class="col-12 col-lg-6 py-5 lg:py-3">
+              <h2 class="text-custGrayYellow text-3xl font-bold">路線資訊</h2>
+              <h3 class="mapTitle">▸國道1</h3>
+              <p class="map-content">
                 往彰化市區￫中華西路￫中央路右轉過橋￫中山路左轉￫南平路右轉￫大埔路右轉直行￫大埔路2巷左轉￫抵達園區
               </p>
-              <h3>▸省道1台中南下方向</h3>
-              <p>
+              <h3 class="mapTitle">▸省道1台中南下方向</h3>
+              <p class="map-content">
                 往彰化市區￫中山路一段￫南平街左轉￫大埔路右轉直行￫大埔路2巷左轉￫抵達園區
               </p>
-              <h3>▸省道1員林北上方向</h3>
-              <p>
+              <h3 class="mapTitle">▸省道1員林北上方向</h3>
+              <p class="map-content">
                 往彰化市區￫中山路一段至大排水溝右轉￫大埔路右轉直行￫大埔路2巷右轉￫抵達園區
               </p>
-              <h3>▸74快速道路</h3>
-              <p>
+              <h3 class="mapTitle">▸74快速道路</h3>
+              <p class="map-content">
                 137線往花壇￫彰員路右轉￫彰員路二段直行約10分鐘￫大埔路2巷左轉￫抵達園區
               </p>
             </div>
             <div class="col-12 col-lg-6"></div>
+          </div>
+          <div class="row m-0">
             <div class="col-12 p-0">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14573.669716806211!2d120.5559739!3d24.0516005!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346938434d271b55%3A0x92ea3dc9f12cb403!2z5ZSv5oSb5bqt5ZySIFZlbmEgTWFub3I!5e0!3m2!1szh-TW!2stw!4v1720024188019!5m2!1szh-TW!2stw"
+                src="https://script.google.com/macros/s/AKfycbw0ynZ_ikpCIFKLXKgJ6azjIJFJiGl53FiShcADcd3WCaoU-k7k2fZcls7LfKI17rkC/exec"
                 width="100%"
                 height="450"
                 style="border: 0"
@@ -291,6 +427,12 @@
         </div>
       </div>
     </div>
+    <!-- <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+      ></script> -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -13,7 +13,7 @@ module.exports = {
       colors: {
         custGreen: "#00745A",
         custRed: "#ED5F54",
-        custBlue: "#5E6A8F",
+        custBlue: "#246C93",
         custGrayYellow: "#98915D",
         custGreen: "#507A59",
         bgYellow: "#FCFAF4",

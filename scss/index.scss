@@ -12,20 +12,211 @@
   }
 }
 @layer components {
+  .hamburger {
+    padding: 15px 15px;
+    display: inline-block;
+    cursor: pointer;
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .hamburger:hover {
+    opacity: 0.7;
+  }
+
+  .hamburger.is-active:hover {
+    opacity: 0.7;
+  }
+
+  .hamburger.is-active .hamburger-inner,
+  .hamburger.is-active .hamburger-inner::before,
+  .hamburger.is-active .hamburger-inner::after {
+    background-color: #000;
+  }
+
+  .hamburger-box {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+  }
+
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 40px;
+    height: 4px;
+    background-color: #000;
+    border-radius: 4px;
+    position: absolute;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
+
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    content: "";
+    display: block;
+  }
+
+  .hamburger-inner::before {
+    top: -10px;
+  }
+
+  .hamburger-inner::after {
+    bottom: -10px;
+  }
+
+  /*
+   
+     * Collapse
+     */
+
+  .hamburger--collapse .hamburger-inner {
+    top: auto;
+    bottom: 0;
+    transition-duration: 0.13s;
+    transition-delay: 0.13s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  .hamburger--collapse .hamburger-inner::after {
+    top: -20px;
+    transition: top 0.2s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1),
+      opacity 0.1s linear;
+  }
+
+  .hamburger--collapse .hamburger-inner::before {
+    transition: top 0.12s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1),
+      transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  .hamburger--collapse.is-active .hamburger-inner {
+    transform: translate3d(0, -10px, 0) rotate(-45deg);
+    transition-delay: 0.22s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  .hamburger--collapse.is-active .hamburger-inner::after {
+    top: 0;
+    opacity: 0;
+    transition: top 0.2s cubic-bezier(0.33333, 0, 0.66667, 0.33333),
+      opacity 0.1s 0.22s linear;
+  }
+
+  .hamburger--collapse.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(-90deg);
+    transition: top 0.1s 0.16s cubic-bezier(0.33333, 0, 0.66667, 0.33333),
+      transform 0.13s 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  /*hamburgers Style-start*/
+
+  /* .menuBorder{
+      border: solid 1px #fff;
+      
+      
+  } */
+  .hamburger {
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .hamburger:hover,
+  .hamburger.is-active:hover {
+    opacity: 1;
+  }
+
+  .hamburger-box {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 36px;
+    height: 4px;
+    @apply bg-custBlue;
+  }
+
+  .hamburger-inner::before {
+    top: -14px;
+  }
+
+  .hamburger--collapse .hamburger-inner::after {
+    top: -28px !important;
+  }
+
+  .hamburger--collapse .hamburger-inner {
+    top: 20px !important;
+    left: -8px;
+  }
+
+  .hamburger.is-active .hamburger-inner,
+  .hamburger.is-active .hamburger-inner::before,
+  .hamburger.is-active .hamburger-inner::after {
+    @apply bg-custBlue;
+  }
+
+  @media screen and (min-width: 992px) {
+    .hamburger.is-active .hamburger-inner,
+    .hamburger.is-active .hamburger-inner::before,
+    .hamburger.is-active .hamburger-inner::after {
+      background-color: #fff;
+    }
+  }
+
+  .hamburger--collapse.is-active .hamburger-inner {
+    top: 20px !important;
+    left: -8px;
+  }
+
+  .hamburger--collapse.is-active .hamburger-inner::after {
+    top: 0px !important;
+  }
+
+  .hamburger--collapse .hamburger-inner {
+    transition-duration: 0.25s;
+  }
+  #hamburger {
+    @apply absolute top-0;
+  }
+
   body {
     background-color: #f0ede6;
   }
   .navbar_wedding {
-    @apply rounded-full bg-[rgba(255,255,255,0.37)];
+    @apply rounded-lg lg:rounded-full bg-[rgba(240,240,249,1)] lg:bg-[rgba(255,255,255,0.37)] h-0 overflow-hidden;
     box-shadow: 0 4px 6px rgba(142, 162, 138, 0.25);
+    transition-duration: 0.8s;
   }
   .navbar_wedding .list-item {
-    @apply text-custBlue inline-block py-4 px-4 text-lg font-bold;
+    @apply text-custBlue block lg:inline-block py-4 px-8 text-lg font-bold border-b border-dashed border-custBlue lg:border-0;
+  }
+  .navbar_wedding .list-item:last-child {
+    @apply border-0;
   }
   .navbar_wedding {
-    @apply absolute top-20 left-1/2 text-center flex justify-center;
+    @apply absolute top-20 left-1/2 text-center flex justify-center w-[80%] lg:w-[600px];
     transform: translateX(-50%);
-    width: 600px;
+
     gap: 40px;
   }
   .content {
@@ -36,8 +227,8 @@
     mix-blend-mode: multiply;
   }
   .title-alex {
+    @apply text-[56px] lg:text-[64px];
     font-family: "Alex Brush";
-    font-size: 64px;
   }
   .radioStyle {
     display: block;
@@ -147,5 +338,14 @@
   }
   .form-rsvpInput {
     @apply py-2;
+  }
+  .rsvp-frame {
+    @apply overflow-scroll lg:h-[650px];
+  }
+  .mapTitle {
+    @apply text-xl text-custGreen font-bold;
+  }
+  .map-content {
+    @apply text-[#333];
   }
 }
