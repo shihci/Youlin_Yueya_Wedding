@@ -203,7 +203,7 @@
     background-color: #f0ede6;
   }
   .navbar_wedding {
-    @apply rounded-lg lg:rounded-full bg-[rgba(240,240,249,1)] lg:bg-[rgba(255,255,255,0.37)] h-0 overflow-hidden;
+    @apply rounded-lg lg:rounded-full bg-[rgba(240,240,249,1)] lg:bg-[rgba(255,255,255,0.37)] h-0 lg:h-auto overflow-hidden;
     box-shadow: 0 4px 6px rgba(142, 162, 138, 0.25);
     transition-duration: 0.8s;
   }
