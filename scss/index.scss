@@ -340,12 +340,15 @@
     @apply py-2;
   }
   .rsvp-frame {
-    @apply overflow-scroll lg:h-[650px];
+    @apply overflow-auto lg:h-[650px];
   }
   .mapTitle {
     @apply text-xl text-custGreen font-bold;
   }
   .map-content {
     @apply text-[#333];
+  }
+  .error-info {
+    @apply text-[#dc3545] text-xs font-semibold;
   }
 }

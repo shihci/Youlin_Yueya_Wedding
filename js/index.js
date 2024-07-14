@@ -1,6 +1,12 @@
-const { createApp, ref } = Vue;
+const { createApp, ref, onMounted } = Vue;
+const { Field, Form, ErrorMessage } = VeeValidate;
 
 createApp({
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
   setup() {
     const islevel1 = ref(true);
     const islevel2 = ref(false);
@@ -8,8 +14,8 @@ createApp({
     const rsvp = ref({
       name: "",
       telphone: "",
-      isAttend: "",
-      isManOrWoman: "",
+      isAttend: null,
+      gender: null,
       relation: "",
       quantity: null,
       chairQty: null,
@@ -30,7 +36,7 @@ createApp({
       var search = new URLSearchParams(data);
       console.log(rsvp.value);
       var url =
-        "https://script.google.com/macros/s/AKfycbw91tp9KXulAR1q_6ornr7JMQQ-S034OdmTp3SrxDQEtTienyVfSoQ1uXV55I4kIW5x/exec";
+        "https://script.google.com/macros/s/AKfycbxZC4ZGX-vp5cvOpcBJDrgMbH_oSJ7QGbNeuPfXyv-TJEPgXokFeGuxVGZkhw_9LkY80A/exec";
       // $.ajax({
       //   type: "get",
       //   url: url,
@@ -64,12 +70,62 @@ createApp({
       }
     };
     const onContinue = () => {
-      if (isAttend.value) {
+      console.log(rsvp.value.isAttend);
+      //return;
+
+      if (rsvp.value.isAttend === "是") {
         islevel1.value = false;
-      } else {
+      } else if (rsvp.value.isAttend === "否") {
         onSubmit();
+      } else {
+        isChecked(rsvp.value.isAttend);
       }
     };
+    const isRequired = (value) => {
+      if (!value) {
+        return "此欄位必填";
+      }
+
+      return true;
+    };
+    const isPhone = (value) => {
+      console.log(323);
+      const regex = /^09\d{8}$/;
+      if (!value) {
+        console.log(3233);
+        return "此欄位必填";
+      } else if (!regex.test(value)) {
+        return "電話必須為09開頭，ex：0912345678";
+      } else {
+        return true;
+      }
+    };
+    const isChecked = (value) => {
+      if (!value) {
+        return "此欄位必填";
+      }
+
+      return true;
+    };
+    onMounted(() => {
+      var swiper = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+        },
+      });
+    });
+
     return {
       rsvp,
       onSubmit,
@@ -79,6 +135,9 @@ createApp({
       onAttend,
       onContinue,
       isOpen,
+      isRequired,
+      isPhone,
+      isChecked,
     };
   },
 }).mount("#app");

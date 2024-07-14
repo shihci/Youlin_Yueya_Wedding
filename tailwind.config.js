@@ -11,8 +11,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        custGreen: "#00745A",
-        custRed: "#ED5F54",
+        custRed: "#d1635a",
         custBlue: "#246C93",
         custGrayYellow: "#98915D",
         custGreen: "#507A59",
