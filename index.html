@@ -241,10 +241,34 @@
                       </div>
                     </div>
                   </v-form>
-                  <!-- 第二道問題 -->
+
+                  <!-- 第二道問題/回答不出席-->
+                  <div v-if="isNotAttend">
+                    <div class="form-rsvpInput">
+                      <label class="block" for="">想對新人說的話:</label>
+                      <textarea
+                        class="rsvpInput"
+                        rows="4"
+                        v-model="rsvp.ps"
+                      ></textarea>
+                    </div>
+                    <div class="form-rsvpInput flex gap-3">
+                      <button
+                        class="btn btn-cancel"
+                        v-on:click="islevel1=true;isNotAttend=false;"
+                      >
+                        返回
+                      </button>
+                      <button class="btn btn-rsvp" v-on:click="onSubmit()">
+                        提交
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 第二道問題/回答出席 -->
                   <v-form
                     class="w-full lg:w-[50%]"
-                    v-if="!islevel1"
+                    v-if="isAttendFrame"
                     @submit="onSubmit"
                   >
                     <div class="form-rsvpInput">

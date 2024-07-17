@@ -12,6 +12,8 @@ createApp({
     const islevel2 = ref(false);
     const isOpen = ref(false);
     const isLoading = ref(true);
+    const isAttendFrame = ref(false);
+    const isNotAttend = ref(false);
     const rsvp = ref({
       name: "",
       telphone: "",
@@ -56,6 +58,8 @@ createApp({
         params: rsvp.value,
       })
         .then((res) => {
+          isAttendFrame.value = false;
+          isNotAttend.value = false;
           islevel1.value = true;
           islevel2.value = true;
           isLoading.value = true;
@@ -77,8 +81,10 @@ createApp({
 
       if (rsvp.value.isAttend === "是") {
         islevel1.value = false;
+        isAttendFrame.value = true;
       } else if (rsvp.value.isAttend === "否") {
-        onSubmit();
+        islevel1.value = false;
+        isNotAttend.value = true;
       } else {
         isChecked(rsvp.value.isAttend);
       }
@@ -163,6 +169,8 @@ createApp({
       isPhone,
       isChecked,
       isLoading,
+      isNotAttend,
+      isAttendFrame,
     };
   },
 }).mount("#app");
