@@ -351,4 +351,8 @@
   .error-info {
     @apply text-[#dc3545] text-xs font-semibold;
   }
+  .mySwiper2 {
+    @apply w-[80%];
+    aspect-ratio: 3 / 2;
+  }
 }

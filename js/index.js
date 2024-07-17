@@ -11,6 +11,7 @@ createApp({
     const islevel1 = ref(true);
     const islevel2 = ref(false);
     const isOpen = ref(false);
+    const isLoading = ref(true);
     const rsvp = ref({
       name: "",
       telphone: "",
@@ -26,7 +27,7 @@ createApp({
     const isAttend = ref(null);
     const onSubmit = () => {
       console.log(rsvp.value);
-
+      isLoading.value = false;
       const nowTime = new Date();
       const data = {
         source: "WEB",
@@ -57,6 +58,7 @@ createApp({
         .then((res) => {
           islevel1.value = true;
           islevel2.value = true;
+          isLoading.value = true;
         })
         .catch((error) => {});
       //this.$refs.form.resetForm();
@@ -123,7 +125,29 @@ createApp({
         pagination: {
           el: ".swiper-pagination",
         },
+
+        on: {
+          slideChange: function () {
+            let activeIndex = this.activeIndex;
+            swiper2.slideToLoop(activeIndex);
+          },
+        },
       });
+      var swiper2 = new Swiper(".mySwiper2", {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+
+        thumbs: {
+          swiper: swiper,
+        },
+      });
+      function slideToIndex(index) {
+        swiper.slideTo(index);
+      }
     });
 
     return {
@@ -138,6 +162,7 @@ createApp({
       isRequired,
       isPhone,
       isChecked,
+      isLoading,
     };
   },
 }).mount("#app");
