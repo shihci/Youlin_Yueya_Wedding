@@ -1,4 +1,4 @@
-const { createApp, ref, onMounted } = Vue;
+const { createApp, ref, onMounted, computed, watch } = Vue;
 const { Field, Form, ErrorMessage } = VeeValidate;
 
 createApp({
@@ -14,6 +14,7 @@ createApp({
     const isLoading = ref(true);
     const isAttendFrame = ref(false);
     const isNotAttend = ref(false);
+    const twzipcode = ref({});
     const rsvp = ref({
       name: "",
       telphone: "",
@@ -25,9 +26,14 @@ createApp({
       vegetarianDietQty: null,
       address: "",
       ps: "",
+      city: null,
+      town: null,
+      zipcode: "",
+      addressInfo: "",
     });
     const isAttend = ref(null);
     const onSubmit = () => {
+      rsvp.value.address = `${rsvp.value.zipcode}${rsvp.value.city}${rsvp.value.town}${rsvp.value.addressInfo}`;
       console.log(rsvp.value);
       isLoading.value = false;
       const nowTime = new Date();
@@ -63,6 +69,7 @@ createApp({
           islevel1.value = true;
           islevel2.value = true;
           isLoading.value = true;
+          console.log(isLoading).value;
         })
         .catch((error) => {});
       //this.$refs.form.resetForm();
@@ -89,6 +96,86 @@ createApp({
         isChecked(rsvp.value.isAttend);
       }
     };
+
+    const citys = ref([]);
+    const cityApi = () => {
+      axios({
+        method: "get",
+        url: "./api/city.json",
+      })
+        .then((res) => {
+          citys.value = res.data.data;
+          console.log(citys.value);
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    };
+    const twzipcodeApi = () => {
+      axios({
+        method: "get",
+        url: "./api/zipcode.json",
+      })
+        .then((res) => {
+          twzipcode.value = res.data.data;
+          console.log(twzipcode.value);
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    };
+
+    watch(
+      () => rsvp.value.city,
+      (newCity) => {
+        onTown(newCity);
+      }
+    );
+
+    const town = ref([]);
+    const onTown = (townName) => {
+      let newtown = [];
+      twzipcode.value.forEach((el) => {
+        if (el.city === townName) {
+          newtown.push(el);
+          town.value = newtown;
+        }
+      });
+      //rsvp.value.town = null;
+    };
+    const inputTown = (townName) => {
+      let newtown = [];
+      twzipcode.value.forEach((el) => {
+        if (el.city === townName) {
+          newtown.push(el);
+          town.value = newtown;
+        }
+      });
+      rsvp.value.town = "";
+    };
+
+    watch(
+      () => rsvp.value.zipcode,
+      (newZipcode) => {
+        if (newZipcode.length >= 3) {
+          let str = newZipcode.substring(0, 3);
+          let currentArea = twzipcode.value.find(
+            (item) => item.zip_code === str
+          );
+          if (currentArea) {
+            rsvp.value.city = currentArea.city;
+            onTown(currentArea.city); // 更新城鎮選項
+            console.log(currentArea.district);
+            rsvp.value.town = currentArea.district;
+            console.log(rsvp.value.town);
+          } else {
+            rsvp.value.city = null;
+            rsvp.value.town = null;
+          }
+        }
+      }
+    );
+
     const isRequired = (value) => {
       if (!value) {
         return "此欄位必填";
@@ -116,6 +203,9 @@ createApp({
       return true;
     };
     onMounted(() => {
+      cityApi();
+      twzipcodeApi();
+
       var swiper = new Swiper(".mySwiper", {
         effect: "coverflow",
         grabCursor: true,
@@ -171,6 +261,10 @@ createApp({
       isLoading,
       isNotAttend,
       isAttendFrame,
+      citys,
+      onTown,
+      town,
+      inputTown,
     };
   },
 }).mount("#app");

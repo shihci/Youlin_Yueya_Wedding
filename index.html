@@ -139,7 +139,7 @@
             />
             <img
               class="absolute bottom-0 right-0 w-[300px] p-0"
-              src="img/pic3.svg"
+              src="img/pic3.svg d-none d-lg-block"
               alt=""
             />
             <div class="row m-0 p-0">
@@ -153,12 +153,12 @@
               <div class="col-lg-2 hidden lg:block">
                 <img class="w-100" src="img/rspv-dir1.png" alt="" />
               </div>
-              <div class="col-12 col-lg-6">
+              <div class="col-12 col-lg-6 mb-8 lg:mb-0">
                 <h2 class="text-[64px] text-custGrayYellow">RSVP</h2>
                 <div class="rsvp-frame">
                   <v-form v-if="islevel1 && !islevel2" @submit="onContinue">
                     <p class="text-[#333]">
-                      我們即將迎來我們人生中最重要的時刻之一——我們的婚禮！
+                      我們即將迎來我們人生中最重要的時刻——我們的婚禮！
                       為了籌備這場盛會，我們希望能知道您是否能夠出席我們的婚禮。
                       無論您是否出席，希望您填寫邀請調查表，以便我們能更好地安排一切細節！
                     </p>
@@ -235,9 +235,7 @@
                         </label>
                       </div>
                       <div class="form-rsvpInput">
-                        <button class="btn btn-rsvp" v-on:click="onContinue()">
-                          繼續
-                        </button>
+                        <button class="btn btn-rsvp">繼續</button>
                       </div>
                     </div>
                   </v-form>
@@ -436,18 +434,69 @@
                         ><span class="text-danger">*</span
                         >紙本喜帖寄送地址：</label
                       >
+
+                      <!-- 測試 -->
+                      <v-field
+                        name="zipcode"
+                        class="rsvpInput my-2"
+                        type="text"
+                        v-model="rsvp.zipcode"
+                        placeholder="*請輸入郵遞區號"
+                      ></v-field>
+
+                      <v-field
+                        as="select"
+                        name="city"
+                        id=""
+                        class="rsvpInput my-2"
+                        v-model="rsvp.city"
+                        v-on:change="inputTown(rsvp.city)"
+                        :rules="isRequired"
+                      >
+                        <option value="">*請選擇縣市</option>
+
+                        <option v-for="item in citys" :value="item">
+                          {{item}}
+                        </option>
+                      </v-field>
+                      <error-message
+                        class="error-info"
+                        name="city"
+                      ></error-message>
+                      <v-field
+                        as="select"
+                        name="town"
+                        id=""
+                        class="rsvpInput my-2"
+                        v-model="rsvp.town"
+                        :rules="isRequired"
+                      >
+                        <option value="">*請選擇鄉鎮市區</option>
+
+                        <option v-for="item in town" :value="item.district">
+                          {{item.district}}
+                        </option>
+                      </v-field>
+                      <error-message
+                        class="error-info"
+                        name="town"
+                      ></error-message>
+                      <!-- 測試 -->
+
+                      <v-field
+                        as="textarea"
+                        name="address"
+                        class="rsvpInput my-2"
+                        rows="4"
+                        v-model="rsvp.addressInfo"
+                        :rules="isRequired"
+                        placeholder="*請輸入詳細地址"
+                      ></v-field>
+
                       <error-message
                         class="error-info"
                         name="address"
                       ></error-message>
-                      <v-field
-                        as="textarea"
-                        name="address"
-                        class="rsvpInput"
-                        rows="4"
-                        v-model="rsvp.address"
-                        :rules="isRequired"
-                      ></v-field>
                     </div>
                     <div class="form-rsvpInput">
                       <label class="block" for="">想對新人說的話:</label>
@@ -458,7 +507,10 @@
                       ></textarea>
                     </div>
                     <div class="form-rsvpInput flex gap-3">
-                      <button class="btn btn-cancel" v-on:click="islevel1=true">
+                      <button
+                        class="btn btn-cancel"
+                        v-on:click="isAttendFrame=false;islevel1=true"
+                      >
                         返回
                       </button>
                       <button class="btn btn-rsvp">提交</button>
